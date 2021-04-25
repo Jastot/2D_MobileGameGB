@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 namespace Game.InputLogic
 {
-    internal sealed class InputSwipeView : BaseInputView, IBeginDragHandler, IEndDragHandler, IDragHandler
+    public class InputSwipeView : BaseInputView, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
 
         private float _threshold = 40;
@@ -12,12 +12,10 @@ namespace Game.InputLogic
         public void OnBeginDrag(PointerEventData eventData)
         {
             _startPosition = eventData.position;
-           
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            
             float diff = eventData.position.x - _startPosition.x;
             if (Mathf.Abs(diff) >= _threshold)
             {

@@ -1,22 +1,22 @@
 ﻿using Profile;
+using Profile.Analytic;
 using UnityEngine;
 
-internal sealed class Root : MonoBehaviour
+public class Root : MonoBehaviour
 {
     [SerializeField] 
     private Transform _placeForUi;
-    [SerializeField] private float _speedCar = 15.0f;
 
     private MainController _mainController;
 
     private void Awake()
     {
-        ProfilePlayer profilePlayer = new ProfilePlayer(_speedCar);
+        ProfilePlayer profilePlayer = new ProfilePlayer(15f, new UnityAnalyticTools());
         profilePlayer.CurrentState.Value = GameState.Start;
         _mainController = new MainController(_placeForUi, profilePlayer);
     }
 
-    private void OnDestroy()
+    protected void OnDestroy()
     {
         _mainController?.Dispose();
     }

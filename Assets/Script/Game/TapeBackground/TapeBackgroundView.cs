@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.TapeBackground
 {
-    internal sealed class TapeBackgroundView : MonoBehaviour
+    public class TapeBackgroundView : MonoBehaviour
     {
         [SerializeField] 
         private Background[] _backgrounds;
@@ -16,7 +16,7 @@ namespace Game.TapeBackground
             _diff.SubscribeOnChange(Move);
         }
 
-        private void OnDestroy()
+        protected void OnDestroy()
         {
             _diff?.SubscribeOnChange(Move);
         }

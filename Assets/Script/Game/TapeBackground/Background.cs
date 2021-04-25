@@ -2,7 +2,7 @@
 
 namespace Game.TapeBackground
 {
-    internal sealed class Background : MonoBehaviour
+    public class Background : MonoBehaviour
     {
         [SerializeField]
         private float _leftBorder;

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cb1d02914e74816b726bd945d199cbe, type: 3}
+  m_Name: OilGun
+  m_EditorClassIdentifier: 
+  itemConfig: {fileID: 11400000, guid: 09c965da856581b4e963f6b6aa776114, type: 2}
+  view: {fileID: 8629315963605201271, guid: feb040bcd02f6d74db02e7eed08bb396, type: 3}
+  type: 2
+  value: -50

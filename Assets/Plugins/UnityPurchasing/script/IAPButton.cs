@@ -177,7 +177,7 @@ namespace UnityEngine.Purchasing
             onPurchaseFailed.Invoke(product, reason);
         }
 
-        internal void UpdateText()
+        public void UpdateText()
         {
             var product = CodelessIAPStoreListener.Instance.GetProduct(productId);
             if (product != null)

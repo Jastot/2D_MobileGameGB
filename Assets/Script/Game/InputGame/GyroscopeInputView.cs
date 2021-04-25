@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.InputLogic
 {
-    internal sealed class GyroscopeInputView : BaseInputView
+    public class GyroscopeInputView : BaseInputView
     {
         public override void Init(SubscriptionProperty<float> leftMove, SubscriptionProperty<float> rightMove, float speed)
         {

@@ -2,7 +2,7 @@
 
 namespace Tools
 {
-    internal interface IReadOnlySubscriptionProperty<T>
+    public interface IReadOnlySubscriptionProperty<T>
     { 
         T Value { get; }
         void SubscribeOnChange(Action<T> subscriptionAction);

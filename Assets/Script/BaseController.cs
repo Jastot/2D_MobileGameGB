@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-internal abstract class BaseController : IDisposable
+public abstract class BaseController : IDisposable
 {
     private List<BaseController> _baseControllers;
     private List<GameObject> _gameObjects;
@@ -38,13 +38,15 @@ internal abstract class BaseController : IDisposable
 
     protected void AddController(BaseController baseController)
     {
-        _baseControllers ??= new List<BaseController>();
+        if (_baseControllers == null)
+            _baseControllers = new List<BaseController>();
         _baseControllers.Add(baseController);
     }
 
     protected void AddGameObjects(GameObject gameObject)
     {
-        _gameObjects ??= new List<GameObject>();
+        if (_gameObjects == null)
+            _gameObjects = new List<GameObject>();
         _gameObjects.Add(gameObject);
     }
 

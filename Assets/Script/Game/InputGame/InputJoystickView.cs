@@ -5,7 +5,7 @@ using UnityStandardAssets.CrossPlatformInput;
 
 namespace Game.InputLogic
 {
-    internal sealed class InputJoystickView : BaseInputView
+    public class InputJoystickView : BaseInputView
     {
         public override void Init(SubscriptionProperty<float> leftMove, SubscriptionProperty<float> rightMove, float speed)
         {

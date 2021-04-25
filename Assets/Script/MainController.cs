@@ -3,19 +3,27 @@ using Profile;
 using Ui;
 using UnityEngine;
 
-internal sealed class MainController : BaseController
+public class MainController : BaseController
 {
-    private MainMenuController _mainMenuController;
-    private GameController _gameController;
-    private readonly Transform _placeForUi;
-    private readonly ProfilePlayer _profilePlayer;
-    
     public MainController(Transform placeForUi, ProfilePlayer profilePlayer)
     {
         _profilePlayer = profilePlayer;
         _placeForUi = placeForUi;
         OnChangeGameState(_profilePlayer.CurrentState.Value);
         profilePlayer.CurrentState.SubscribeOnChange(OnChangeGameState);
+    }
+
+    private MainMenuController _mainMenuController;
+    private GameController _gameController;
+    private readonly Transform _placeForUi;
+    private readonly ProfilePlayer _profilePlayer;
+
+    protected override void OnDispose()
+    {
+        _mainMenuController?.Dispose();
+        _gameController?.Dispose();
+        _profilePlayer.CurrentState.UnSubscriptionOnChange(OnChangeGameState);
+        base.OnDispose();
     }
 
     private void OnChangeGameState(GameState state)
@@ -35,13 +43,5 @@ internal sealed class MainController : BaseController
                 _gameController?.Dispose();
                 break;
         }
-    }
-
-    protected override void OnDispose()
-    {
-        _mainMenuController?.Dispose();
-        _gameController?.Dispose();
-        _profilePlayer.CurrentState.UnSubscriptionOnChange(OnChangeGameState);
-        base.OnDispose();
     }
 }

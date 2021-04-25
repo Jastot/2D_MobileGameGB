@@ -2,7 +2,7 @@
 
 namespace Tools
 {
-    internal sealed class SubscriptionAction : IReadOnlySubscriptionAction
+    public class SubscriptionAction : IReadOnlySubscriptionAction
     {
         private Action _action;
 

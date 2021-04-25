@@ -2,7 +2,7 @@
 
 namespace Game
 {
-    internal sealed class CarView : MonoBehaviour
+    public class CarView : MonoBehaviour
     {
     
     }  
