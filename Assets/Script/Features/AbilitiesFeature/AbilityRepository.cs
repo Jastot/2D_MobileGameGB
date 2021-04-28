@@ -31,6 +31,7 @@ namespace Company.Project.Features.Abilities
             {
                 if (upgradeHandlersMapByType.ContainsKey(config.Id)) continue;
                 upgradeHandlersMapByType.Add(config.Id, CreateAbilityByType(config));
+                config.SetItem();
             }
         }
 
@@ -40,6 +41,10 @@ namespace Company.Project.Features.Abilities
             {
                 case AbilityType.Gun:
                     return new GunAbility(config);
+                case AbilityType.Oil:
+                    return new OilAbility(config);
+                case AbilityType.Jump:
+                    return new JumpAbility(config);
                 default:
                     return StubAbility.Default;
             }

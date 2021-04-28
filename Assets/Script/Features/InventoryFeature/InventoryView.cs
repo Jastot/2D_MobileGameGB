@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Company.Project.Features.Abilities;
 using Company.Project.Features.Items;
 using Tools;
 using UnityEngine;
@@ -15,8 +16,10 @@ namespace Company.Project.Features.Inventory
         [SerializeField] private Button _cancel;
         [SerializeField] private Button _accept;
         [SerializeField] private GameObject _contextWhereToSetItem;
+        [SerializeField] private GameObject _contextWhereToSetItemAbility;
         [SerializeField] private GameObject _inventory;
         private List<IItem> _itemInfoCollection;
+        private List<IAbility> _abilitiesInfoCollection;
         
         private ResourcePath prefab
             = new ResourcePath {PathResource = "Prefabs/Item"};
@@ -27,8 +30,11 @@ namespace Company.Project.Features.Inventory
 
         #region IInventoryView
         
-        public event EventHandler<IItem> Selected;
-        public event EventHandler<IItem> Deselected;
+        public event EventHandler<IItem> SelectedItem;
+        public event EventHandler<IItem> DeselectedItem;
+        
+        public event EventHandler<IAbility> SelectedAbility;
+        public event EventHandler<IAbility> DeselectedAbility;
         public event EventHandler<bool> Exit;
         public event EventHandler<bool> Accept;
 
@@ -55,21 +61,32 @@ namespace Company.Project.Features.Inventory
         
         public void Hide()
         {
-            Destroy(_contextWhereToSetItem.GetComponentInChildren<Toggle>().gameObject);
+            foreach (var toggle in _contextWhereToSetItem.GetComponentsInChildren<Toggle>())
+            {
+                Destroy(toggle.gameObject);
+            }
             _inventory.SetActive(false);
         }
 
-        public void Display(List<IItem> itemInfoCollection)
+        public void Display(
+            List<IItem> itemInfoCollection,
+            List<IAbility> abilitiesInfoCollection)
         {
             _itemInfoCollection = itemInfoCollection;
+            _abilitiesInfoCollection = abilitiesInfoCollection;
             InventoryInitialization inventoryInitialization = 
                 new InventoryInitialization(
                     prefab,
                     _contextWhereToSetItem.transform,
+                    _contextWhereToSetItemAbility.transform,
                     _itemInfoCollection,
-                    Selected,
-                    Deselected
+                    _abilitiesInfoCollection,
+                    SelectedItem,
+                    DeselectedItem,
+                    SelectedAbility,
+                    DeselectedAbility
                     );
+        
         }
         #endregion
     }

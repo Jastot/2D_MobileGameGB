@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Company.Project.Features.Abilities;
 using Company.Project.Features.Items;
 using Company.Project.UI;
 using UnityEngine;
@@ -9,7 +10,8 @@ namespace Company.Project.Features.Inventory
     public interface IInventoryController : IAcceptOrDeclineView
     {
         IReadOnlyList<IItem> GetEquippedItems();
-        void ShowInventory(Action hideAction);
+        IReadOnlyList<IAbility> GetEquippedAbilities();
+        void ShowInventory();
         void HideInventory();
         
     }
@@ -19,6 +21,9 @@ namespace Company.Project.Features.Inventory
         IReadOnlyList<IItem> GetEquippedItems();
         void EquipItem(IItem item);
         void UnequipItem(IItem item);
+        IReadOnlyList<IAbility> GetEquippedAbilities();
+        void EquipAbility(IAbility item);
+        void UnequipAbility(IAbility item);
     }
     
     public interface IAcceptOrDeclineView
@@ -29,9 +34,11 @@ namespace Company.Project.Features.Inventory
     }
     public interface IInventoryView : IView,IAcceptOrDeclineView
     {
-        event EventHandler<IItem> Selected;
-        event EventHandler<IItem> Deselected;
-        void Display(List<IItem> itemInfoCollection);
+        event EventHandler<IItem> SelectedItem;
+        event EventHandler<IItem> DeselectedItem;
+        event EventHandler<IAbility> SelectedAbility;
+        event EventHandler<IAbility> DeselectedAbility;
+        void Display(List<IItem> itemInfoCollection,List<IAbility> abilitiesInfoCollection);
     }
 
     public interface IItemFactory

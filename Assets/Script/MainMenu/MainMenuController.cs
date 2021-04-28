@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Company.Project.Content;
 using Company.Project.ContentData;
+using Company.Project.Features.Abilities;
 using Company.Project.Features.Inventory;
 using Game.Trail;
 using Profile;
@@ -59,6 +60,13 @@ namespace Ui
 
             var itemsRepository 
                 = new ItemsRepository(upgradeItemsConfigCollection.Select(value => value.itemConfig).ToList());
+            
+            var abilityItemsConfigCollection 
+                = ContentDataSourceLoader.LoadAbilityItemConfigs(new ResourcePath {PathResource = "DataSource/Abilities/AbilityItemConfigDataSource"});
+                                                                                                
+            var abilityRepository 
+                = new AbilityRepository(abilityItemsConfigCollection);
+            
             var inventoryModel
                 = new InventoryModel();
             var inventoryViewPath
@@ -67,11 +75,16 @@ namespace Ui
                 = ResourceLoader.LoadAndInstantiateObject<InventoryView>(inventoryViewPath, placeForUi, false);
             AddGameObjects(inventoryView.gameObject);
             var inventoryController 
-                = new InventoryController(itemsRepository, inventoryModel, inventoryView);
+                = new InventoryController(itemsRepository, inventoryModel, abilityRepository, inventoryView);
             AddController(inventoryController);
             
             var shedController
-                = new ShedController(upgradeItemsRepository, inventoryController, profilePlayer.CurrentCar);
+                = new ShedController(
+                    upgradeItemsRepository,
+                    inventoryController, 
+                    profilePlayer.CurrentCar
+                    
+                    );
             AddController(shedController);
             
             return shedController;

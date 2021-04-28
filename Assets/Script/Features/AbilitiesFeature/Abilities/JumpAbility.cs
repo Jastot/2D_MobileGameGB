@@ -1,10 +1,10 @@
+﻿using Company.Project.Content;
 using JetBrains.Annotations;
-using Company.Project.Content;
 using UnityEngine;
 
 namespace Company.Project.Features.Abilities
 {
-    public class GunAbility : IAbility
+    public class JumpAbility: IAbility
     {
         #region Fields
 
@@ -14,7 +14,7 @@ namespace Company.Project.Features.Abilities
 
         #region Life cycle
 
-        public GunAbility([NotNull] AbilityItemConfig config)
+        public JumpAbility([NotNull] AbilityItemConfig config)
         {
             _config = config;
         }
@@ -30,8 +30,11 @@ namespace Company.Project.Features.Abilities
 
         public void Apply(IAbilityActivator activator)
         {
-            var projectile = Object.Instantiate(_config.view).GetComponent<Rigidbody2D>();
-            projectile.AddForce(activator.GetViewObject().transform.right * _config.value, ForceMode2D.Force);
+            activator.GetViewObject().GetComponent<Rigidbody2D>().AddForce(new Vector2(0,5),ForceMode2D.Impulse);
+            foreach (var child in activator.GetViewObject().GetComponentsInChildren<Rigidbody2D>())
+            {
+                child.AddForce(new Vector2(0,5),ForceMode2D.Impulse);
+            }
         }
 
         #endregion

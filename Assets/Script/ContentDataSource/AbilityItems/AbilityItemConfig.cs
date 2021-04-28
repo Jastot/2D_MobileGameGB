@@ -1,3 +1,4 @@
+using Company.Project.Features.Items;
 using UnityEngine;
 
 namespace Company.Project.Content
@@ -9,15 +10,27 @@ namespace Company.Project.Content
         public GameObject view;
         public AbilityType type;
         public float value;
-
+        public Item Item;
+        public void SetItem()
+        {
+            Item = new Item
+            {
+                Id = itemConfig.id,
+                Info = new ItemInfo {Title = itemConfig.title}
+            }; 
+        }
         public int Id => itemConfig.id;
     }
+    
+    
+    
+    
     
     public enum AbilityType
     {
         None,
         Gun,
         Oil,
-        Nitro,
+        Jump,
     }
 }

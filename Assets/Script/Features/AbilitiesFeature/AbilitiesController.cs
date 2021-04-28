@@ -9,7 +9,6 @@ namespace Company.Project.Features.Abilities
     {
         #region Fields
 
-        private readonly IRepository<int, IAbility> _abilityRepository;
         private readonly IInventoryModel _inventoryModel;
         private readonly IAbilityCollectionView _abilityCollectionView;
         private readonly IAbilityActivator _carController;
@@ -19,16 +18,9 @@ namespace Company.Project.Features.Abilities
         #region Life cycle
         
         public AbilitiesController(
-            [NotNull] IRepository<int, IAbility> abilityRepository,
-            [NotNull] IInventoryModel inventoryModel,
             [NotNull] IAbilityCollectionView abilityCollectionView,
             [NotNull] IAbilityActivator abilityActivator)
         {
-            _abilityRepository
-                = abilityRepository ?? throw new ArgumentNullException(nameof(abilityRepository));
-
-            _inventoryModel
-                = inventoryModel ?? throw new ArgumentNullException(nameof(inventoryModel));
 
             _abilityCollectionView
                 = abilityCollectionView ?? throw new ArgumentNullException(nameof(abilityCollectionView)); 
@@ -61,12 +53,13 @@ namespace Company.Project.Features.Abilities
             view.UseRequested -= OnAbilityUseRequested;
         }
 
-        private void OnAbilityUseRequested(object sender, IItem e)
+        private void OnAbilityUseRequested(object sender, IAbility e)
         {
-            if (_abilityRepository.Collection.TryGetValue(e.Id, out var ability))
-            {
-                ability.Apply(_carController);
-            }
+            // if (_abilityRepository.Collection.TryGetValue(e.GetConfig().Id, out var ability))
+            // {
+            //     ability.Apply(_carController);
+            // }
+            e.Apply(_carController);
         }
 
         #endregion
@@ -76,7 +69,7 @@ namespace Company.Project.Features.Abilities
         public void ShowAbilities()
         {
             _abilityCollectionView.Show();
-            _abilityCollectionView.Display(_inventoryModel.GetEquippedItems());
+            _abilityCollectionView.Display(_carController.GetCarParameters().Abilities);
         }
 
         #endregion

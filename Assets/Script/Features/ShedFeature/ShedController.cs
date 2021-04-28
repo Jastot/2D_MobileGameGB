@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Company.Project.Features.Abilities;
 using Company.Project.Features.Inventory;
 using Company.Project.Features.Items;
 using JetBrains.Annotations;
@@ -31,6 +32,7 @@ namespace Company.Project.Features.Shed
 
             _inventoryController.Accept += AcceptModifications;
             _inventoryController.Exit += DeclineModifications;
+            _inventoryController.HideInventory();
         }
 
         private void DeclineModifications(object sender, bool e)
@@ -53,6 +55,7 @@ namespace Company.Project.Features.Shed
         private void UpgradeCarWithEquippedItems(
             IUpgradable upgradable,
             IReadOnlyList<IItem> equippedItems, 
+            IReadOnlyList<IAbility> equippedAbilities,
             IReadOnlyDictionary<int, IUpgradeHandler> upgradeHandlers)
         {
             foreach (var equippedItem in equippedItems)
@@ -62,6 +65,11 @@ namespace Company.Project.Features.Shed
                     handler.Upgrade(upgradable);
                 }
             }
+
+            foreach (var ability in equippedAbilities)
+            {
+                upgradable.Abilities.Add(ability);
+            }
         }
 
         #endregion
@@ -70,13 +78,16 @@ namespace Company.Project.Features.Shed
 
         public void Enter()
         {
-            _inventoryController.ShowInventory(Exit);
+            _inventoryController.ShowInventory();
         }
         
         public void Exit()
         {
             UpgradeCarWithEquippedItems(
-                _upgradable, _inventoryController.GetEquippedItems(), _upgradeHandlersRepository.Collection);
+                _upgradable, 
+                _inventoryController.GetEquippedItems(),
+                _inventoryController.GetEquippedAbilities(),
+                _upgradeHandlersRepository.Collection);
         }
 
         #endregion

@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eba0014730d2438a9d3c66983a052a01, type: 3}
-  m_Name: Oil
+  m_Script: {fileID: 11500000, guid: 1cb1d02914e74816b726bd945d199cbe, type: 3}
+  m_Name: Jump
   m_EditorClassIdentifier: 
-  id: 3
-  title: Oil
+  itemConfig: {fileID: 11400000, guid: bbd828de50a1ce0409d3e8c3f9ef3c72, type: 2}
+  view: {fileID: 8822705209953104330, guid: 5ac5bb80b56aeeb4d96eed3a4c6f3234, type: 3}
+  type: 3
+  value: 100

@@ -16,5 +16,6 @@ namespace Company.Project.Content
     {
         None,
         Speed,
+        Abilities
     }
 }

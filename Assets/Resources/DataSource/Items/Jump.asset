@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eba0014730d2438a9d3c66983a052a01, type: 3}
-  m_Name: Oil
+  m_Name: Jump
   m_EditorClassIdentifier: 
-  id: 3
-  title: Oil
+  id: 4
+  title: Jump

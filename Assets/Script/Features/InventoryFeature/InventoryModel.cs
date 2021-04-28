@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Company.Project.Features.Abilities;
 using Company.Project.Features.Items;
 
 namespace Company.Project.Features.Inventory
@@ -8,7 +9,9 @@ namespace Company.Project.Features.Inventory
         #region Fields
         
         private readonly IReadOnlyList<IItem> _stubCollection = new List<IItem>();
+        private readonly IReadOnlyList<IAbility> _stubAbilityCollection = new List<IAbility>();
         private readonly List<IItem> _equippedItems = new List<IItem>();
+        private readonly List<IAbility> _equippedAbilites = new List<IAbility>();
         
         #endregion
 
@@ -19,6 +22,10 @@ namespace Company.Project.Features.Inventory
             return _equippedItems ?? _stubCollection;
         }
 
+        public IReadOnlyList<IAbility> GetEquippedAbilities()
+        {
+            return _equippedAbilites ?? _stubAbilityCollection;
+        }
         public void EquipItem(IItem item)
         {
             if (_equippedItems.Contains(item)) return;
@@ -29,6 +36,17 @@ namespace Company.Project.Features.Inventory
         {
             if (!_equippedItems.Contains(item)) return;
             _equippedItems.Remove(item);
+        }
+        public void EquipAbility(IAbility item)
+        {
+            if (_equippedAbilites.Contains(item)) return;
+            _equippedAbilites.Add(item);
+        }
+
+        public void UnequipAbility(IAbility item)
+        {
+            if (!_equippedAbilites.Contains(item)) return;
+            _equippedAbilites.Remove(item);
         }
         
         #endregion

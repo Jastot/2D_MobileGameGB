@@ -1,4 +1,5 @@
-﻿using Profile.Analytic;
+﻿using Company.Project.Content;
+using Profile.Analytic;
 using Tools;
 
 namespace Profile
@@ -7,6 +8,7 @@ namespace Profile
     {
         public ProfilePlayer(float speedCar, IAnalyticTools analyticTools)
         {
+            
             CurrentState = new SubscriptionProperty<GameState>();
             CurrentCar = new Car(speedCar);
             AnalyticTools = analyticTools;
