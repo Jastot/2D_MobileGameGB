@@ -53,8 +53,8 @@ namespace Company.Project.Features.Inventory
                 itemGO.GetComponentInChildren<Text>().text = ability.GetConfig().Item.Info.Title;
                 var itemGOToggle = itemGO.GetComponent<Toggle>();
                 itemGOToggle.onValueChanged.AddListener((bool arg)=>isToggleOnOrOffAbility(ability,itemGOToggle.isOn));
-
             }
+            
         }
 
         public void isToggleOnOrOffItem(IItem item,bool isOn)
