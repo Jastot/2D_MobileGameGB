@@ -7,6 +7,7 @@ using Game.Trail;
 using Profile;
 using Tools;
 using Company.Project.Features.Shed;
+using Script.Rewards;
 using UnityEngine;
 
 namespace Ui
@@ -14,7 +15,8 @@ namespace Ui
     public class MainMenuController : BaseController
     {
         #region Fields
-
+        
+        private readonly DailyRewardView _dailyRewardView;
         private readonly ProfilePlayer _profilePlayer;
         private readonly MainMenuView _view;
         
@@ -27,15 +29,23 @@ namespace Ui
             ProfilePlayer profilePlayer)
         {
             _profilePlayer = profilePlayer;
-            _view = ResourceLoader.LoadAndInstantiateObject<MainMenuView>(new ResourcePath {PathResource = "Prefabs/mainMenu"}, placeForUi, false); 
+            _view = ResourceLoader.LoadAndInstantiateObject<MainMenuView>(
+                new ResourcePath {PathResource = "Prefabs/mainMenu"}, placeForUi, false);
+            _dailyRewardView = ResourceLoader.LoadAndInstantiateObject<DailyRewardView>(
+                new ResourcePath {PathResource = "Prefabs/Reward Window"}, placeForUi, false);
             AddGameObjects(_view.gameObject);
-            
+            var Slot = ResourceLoader.LoadPrefab(
+                new ResourcePath {PathResource = "Prefabs/Container Slot Reward"});
+            var currencyView =  ResourceLoader.LoadAndInstantiateObject<CurrencyView>(
+                new ResourcePath {PathResource = "Prefabs/Counters"}, placeForUi, false);
+            _dailyRewardView.GetComponent<DailyRewardView>()._containerSlotRewardView
+                = Slot.GetComponent<ContainerSlotRewardView>();
             
             // можно внедрить как зависимость для другого контроллера
             var cursorTrailController = ConfigureCursorTrail();
             var shedController = (IShedController)ConfigureShedController(placeForUi, profilePlayer);
-            
-            _view.Init(StartGame,shedController);
+            var rewardsController = new InstallView(_dailyRewardView);
+            _view.Init(StartGame,shedController,rewardsController);
         }
 
         #endregion
