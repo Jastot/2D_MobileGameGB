@@ -25,6 +25,8 @@ namespace Script.Rewards
     [Header("Ui Elements")]
     [SerializeField] 
     private TMP_Text _timerNewReward;
+    [SerializeField] 
+    private Slider _timerSlider;
     
     [SerializeField] 
     private Transform _mountRootSlotsReward;
@@ -45,7 +47,8 @@ namespace Script.Rewards
     public List<Reward> Rewards => _rewards;
 
     public TMP_Text TimerNewReward => _timerNewReward;
-    
+
+    public Slider TimerSlider => _timerSlider;
     public Transform MountRootSlotsReward => _mountRootSlotsReward;
     
     public ContainerSlotRewardView ContainerSlotRewardView => _containerSlotRewardView;

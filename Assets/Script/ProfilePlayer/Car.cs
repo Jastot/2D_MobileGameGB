@@ -25,6 +25,8 @@ namespace Profile
     
         public Car(float speed)
         {
+            // ну можно в PlayerPrefs записать строку с скоростью и списком абилок...
+            // но опять же гараж оторван от машины,что неправильно. но можно и из гаража сохранить...
             _defaultSpeed = speed;
             Abilities = new List<IAbility>();
             Restore();

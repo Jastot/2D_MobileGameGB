@@ -78,6 +78,7 @@ namespace Script.Rewards
                 if (_isGetReward)
                 {
                     _dailyRewardView.TimerNewReward.text = "The reward is received today";
+                    //_dailyRewardView.TimerSlider.value = 1;
                 }
                 else
                 {
@@ -88,6 +89,13 @@ namespace Script.Rewards
                         var timeGetReward = $"{currentClaimCooldown.Days:D2}:{currentClaimCooldown.Hours:D2}:{currentClaimCooldown.Minutes:D2}:{currentClaimCooldown.Seconds:D2}";
                 
                         _dailyRewardView.TimerNewReward.text = $"Time to get the next reward: {timeGetReward}";
+                        
+                        //оно медленно идет к 0
+                        var antiDaily = _dailyRewardView.TimeDeadline;
+                        _dailyRewardView.TimerSlider.minValue = 0;
+                        _dailyRewardView.TimerSlider.maxValue = antiDaily;
+                        var totalSeconds = currentClaimCooldown.TotalSeconds;
+                        _dailyRewardView.TimerSlider.value = antiDaily -  (float)totalSeconds*2;
                     }
                 }
         
